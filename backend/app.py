@@ -1,15 +1,25 @@
 
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, jsonify, send_from_directory
 import sqlite3
 import pandas as pd
 from io import BytesIO
 import openpyxl
 from weasyprint import HTML
-import hashlib
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../frontend', template_folder='../frontend')
+
 DATABASE = 'database.db'
 
+@app.route('/')
+def home():
+    return send_from_directory(app.static_folder, 'index.html')
+
+@app.route('/<path:path>')
+def static_proxy(path):
+    return send_from_directory(app.static_folder, path)
+
+# Your existing API routes go here...
+# Keep your /api/trucks, /api/upload, /api/assign_jobs etc.
 def init_db():
     with sqlite3.connect(DATABASE) as conn:
         cur = conn.cursor()
