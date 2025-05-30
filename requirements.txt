@@ -1,7 +1,0 @@
-Flask==3.0.0
-pandas==2.2.0
-openpyxl==3.1.2
-geopy==2.0.0
-weasyprint==52.5
-ymaps==0.4.1
-gunicorn==21.2.0
